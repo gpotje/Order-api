@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class OrderController {
 
 
@@ -26,7 +26,7 @@ public class OrderController {
     }
 
     @PostMapping()
-    public ResponseEntity<String> create(@RequestBody OrderCreateDto dto){
-        return new ResponseEntity<String>(service.create(dto),HttpStatus.CREATED);
+    public ResponseEntity<Long> create(@RequestBody OrderCreateDto dto){
+        return new ResponseEntity<Long>(service.create(dto),HttpStatus.CREATED);
     }
 }

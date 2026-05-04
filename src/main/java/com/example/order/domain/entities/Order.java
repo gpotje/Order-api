@@ -1,17 +1,17 @@
 package com.example.order.domain.entities;
 
 public class Order {
-    private String id;
+    private Long id;
     private double price;
     private String customer;
 
-    public Order(String id, String customer, double price) {
+    public Order(Long id, String customer, double price) {
         this.id = id;
         this.customer = customer;
         this.price = price;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 

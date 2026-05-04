@@ -14,26 +14,26 @@ import java.util.UUID;
 public class OrderService {
 
     private List<Order> orderList;
+    private Long idCounter = 1L;
 
     public OrderService(){
         orderList = new ArrayList<>();
-        orderList.add(new Order(UUID.randomUUID().toString(),
+        orderList.add(new Order(idCounter,
                 "Gabriel"
                 ,100.0));
     }
 
-    public String create(OrderCreateDto dto){
-        String id = UUID.randomUUID().toString();
-            orderList.add(new Order(id,
+    public Long create(OrderCreateDto dto){
+        orderList.add(new Order(idCounter,
                     dto.getCustomer()
                     ,dto.getPrice()));
-        return id;
+        return idCounter;
     }
 
     private List<OrderDto> convertOrderInOrderDto(){
         List<OrderDto> dto = new ArrayList<>();
         for(Order o :orderList){
-            dto.add(new OrderDto(o.getId(),o.getCustomer(),o.getPrice()));
+            dto.add(new OrderDto(o.getId() + 1,o.getCustomer(),o.getPrice()));
         }
         return dto;
     }
