@@ -1,7 +1,8 @@
 package com.example.order.controller;
 
-import com.example.order.domain.dto.OrderCreateDto;
-import com.example.order.domain.dto.OrderDto;
+import com.example.order.domain.model.dto.OrderCreateDto;
+import com.example.order.domain.model.dto.OrderDto;
+import com.example.order.domain.model.entities.Order;
 import com.example.order.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,4 +30,13 @@ public class OrderController {
     public ResponseEntity<Long> create(@RequestBody OrderCreateDto dto){
         return new ResponseEntity<Long>(service.create(dto),HttpStatus.CREATED);
     }
+
+    @PostMapping("/{id}/checkout")
+    public ResponseEntity<String> create(@RequestBody OrderCreateDto dto,@PathVariable Long id){
+        Order o = new Order(id,dto.getCustomer(), dto.getPrice());
+        service.checkout(o);
+        return new ResponseEntity<>("successful",HttpStatus.OK);
+    }
+
+
 }

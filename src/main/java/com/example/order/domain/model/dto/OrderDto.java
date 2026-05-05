@@ -1,11 +1,11 @@
-package com.example.order.domain.entities;
+package com.example.order.domain.model.dto;
 
-public class Order {
+public class OrderDto {
     private Long id;
     private double price;
     private String customer;
 
-    public Order(Long id, String customer, double price) {
+    public OrderDto(Long id, String customer, double price) {
         this.id = id;
         this.customer = customer;
         this.price = price;
@@ -15,11 +15,12 @@ public class Order {
         return id;
     }
 
-    public String getCustomer() {
-        return customer;
-    }
 
     public double getPrice() {
         return price;
+    }
+
+    public String getCustomer() {
+        return customer;
     }
 }

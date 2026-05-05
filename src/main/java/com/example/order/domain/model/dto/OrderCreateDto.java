@@ -1,4 +1,4 @@
-package com.example.order.domain.dto;
+package com.example.order.domain.model.dto;
 
 public class OrderCreateDto {
     private double price;
