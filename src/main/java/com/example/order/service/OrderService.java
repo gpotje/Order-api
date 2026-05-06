@@ -20,14 +20,10 @@ public class OrderService {
     private Long idCounter = 1L;
     private CheckoutTemplate checkoutTemplate;
 
-    public OrderService(){
+    public OrderService(CheckoutTemplate checkoutTemplate){
         orderList = new ArrayList<>();
-        orderList.add(new Order(idCounter,
-                "Gabriel"
-                ,100.0));
-        Discount discount = new DefaultDiscount();
-        Payment payment = new CreditPayment();
-        this.checkoutTemplate = new DefaultCheckout(discount,payment);
+        this.checkoutTemplate = checkoutTemplate;
+
     }
 
     public Long create(OrderCreateDto dto){

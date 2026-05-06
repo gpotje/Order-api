@@ -3,7 +3,9 @@ package com.example.order.service;
 import com.example.order.domain.discount.Discount;
 import com.example.order.domain.model.entities.Order;
 import com.example.order.domain.payment.Payment;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultCheckout extends CheckoutTemplate{
 
     private Discount discount;

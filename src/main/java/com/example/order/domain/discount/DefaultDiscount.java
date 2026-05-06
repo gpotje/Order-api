@@ -1,7 +1,9 @@
 package com.example.order.domain.discount;
 
 import com.example.order.domain.model.entities.Order;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultDiscount implements Discount{
     @Override
     public double apply(double price) {
