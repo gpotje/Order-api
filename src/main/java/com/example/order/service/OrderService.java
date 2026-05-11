@@ -22,6 +22,7 @@ public class OrderService {
 
     public OrderService(CheckoutTemplate checkoutTemplate){
         orderList = new ArrayList<>();
+        orderList.add(new Order(idCounter,"Gabriel",100.0));
         this.checkoutTemplate = checkoutTemplate;
 
     }
