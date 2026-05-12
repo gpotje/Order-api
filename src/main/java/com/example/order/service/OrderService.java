@@ -7,6 +7,7 @@ import com.example.order.domain.model.dto.OrderDto;
 import com.example.order.domain.model.entities.Order;
 import com.example.order.domain.payment.CreditPayment;
 import com.example.order.domain.payment.Payment;
+import com.example.order.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,34 +17,31 @@ import java.util.List;
 @Service
 public class OrderService {
 
-    private List<Order> orderList;
-    private Long idCounter = 1L;
     private CheckoutTemplate checkoutTemplate;
 
+    @Autowired
+    private OrderRepository repository;
+
     public OrderService(CheckoutTemplate checkoutTemplate){
-        orderList = new ArrayList<>();
-        orderList.add(new Order(idCounter,"Gabriel",100.0));
         this.checkoutTemplate = checkoutTemplate;
 
     }
 
     public Long create(OrderCreateDto dto){
-        orderList.add(new Order(idCounter,
-                    dto.getCustomer()
-                    ,dto.getPrice()));
-        return idCounter;
+         Order order = repository.save(new Order(dto.getCustomer(),dto.getPrice()));
+        return order.getId();
     }
 
-    private List<OrderDto> convertOrderInOrderDto(){
-        List<OrderDto> dto = new ArrayList<>();
-        for(Order o :orderList){
-            dto.add(new OrderDto(o.getId() + 1,o.getCustomer(),o.getPrice()));
+    private List<OrderDto> convertOrderInOrderDto(List<Order> orderList){
+        List<OrderDto> dto =  new ArrayList<>();
+        for(Order order : orderList){
+            dto.add(new OrderDto(order.getId(),order.getCustomer(),order.getPrice()));
         }
         return dto;
     }
 
     public List<OrderDto> listAll(){
-        return convertOrderInOrderDto();
+        return convertOrderInOrderDto(repository.findAll());
     }
 
     public void checkout(Order order){

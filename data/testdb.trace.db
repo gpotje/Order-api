@@ -1,0 +1,3 @@
+2026-05-12 15:49:31.701882-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "TB_ORDER" not found (this database is empty); SQL statement:
+insert into tb_order (customer,price,id) values (?,?,default) [42104-232]
