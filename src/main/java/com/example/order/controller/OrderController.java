@@ -1,6 +1,7 @@
 package com.example.order.controller;
 
 import com.example.order.domain.model.dto.OrderCreateDto;
+import com.example.order.domain.model.dto.OrderCreateResponseDto;
 import com.example.order.domain.model.dto.OrderDto;
 import com.example.order.domain.model.entities.Order;
 import com.example.order.service.OrderService;
@@ -27,8 +28,8 @@ public class OrderController {
     }
 
     @PostMapping()
-    public ResponseEntity<Long> create(@RequestBody OrderCreateDto dto){
-        return new ResponseEntity<Long>(service.create(dto),HttpStatus.CREATED);
+    public ResponseEntity<OrderCreateResponseDto> create(@RequestBody OrderCreateDto dto){
+        return new ResponseEntity<OrderCreateResponseDto>(service.create(dto),HttpStatus.CREATED);
     }
 
     @PostMapping("/{id}/checkout")

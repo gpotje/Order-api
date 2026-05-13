@@ -3,6 +3,7 @@ package com.example.order.service;
 import com.example.order.domain.discount.DefaultDiscount;
 import com.example.order.domain.discount.Discount;
 import com.example.order.domain.model.dto.OrderCreateDto;
+import com.example.order.domain.model.dto.OrderCreateResponseDto;
 import com.example.order.domain.model.dto.OrderDto;
 import com.example.order.domain.model.entities.Order;
 import com.example.order.domain.payment.CreditPayment;
@@ -27,9 +28,9 @@ public class OrderService {
 
     }
 
-    public Long create(OrderCreateDto dto){
+    public OrderCreateResponseDto create(OrderCreateDto dto){
          Order order = repository.save(new Order(dto.getCustomer(),dto.getPrice()));
-        return order.getId();
+        return new OrderCreateResponseDto(order.getId());
     }
 
     private List<OrderDto> convertOrderInOrderDto(List<Order> orderList){

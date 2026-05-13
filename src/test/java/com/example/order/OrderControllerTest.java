@@ -1,31 +1,50 @@
 package com.example.order;
 
 
-
-import com.example.order.controller.OrderController;
-import com.example.order.domain.model.dto.OrderDto;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.ResponseEntity;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import java.util.List;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
 
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+
+@ActiveProfiles("test")
+@SpringBootTest()
+@AutoConfigureMockMvc
 public class OrderControllerTest {
 
     @Autowired
-    private TestRestTemplate restTemplate;
+    MockMvc mockMvc;
+
+    @BeforeAll
+    static void setup() {
+        System.out.println("Starting test...");
+    }
 
     @Test
-    void should_return_orders(){
-        ResponseEntity<OrderDto[]> response = restTemplate.getForEntity("/orders",OrderDto[].class);
-        OrderDto[] orders = response.getBody();
-        assertEquals("Gabriel",orders[0].getCustomer());
+    void should_save_order() throws Exception{
+
+        String json = """
+            {
+                "nome": "Gabriel",
+                "price": 100
+            }
+            """;
+        System.out.println("=================== TESTE ==================");
+        mockMvc.perform(post("/orders")
+                .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").exists());
+
     }
 
 

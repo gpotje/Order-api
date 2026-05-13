@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: Order-api
+
+server:
+  servlet:
+    context-path: /api/v1/
+
+  profiles:
+    active: dev
